@@ -52,7 +52,19 @@ export const signup = async (req, res) => {
     res.status(201).json({ result, token })
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' })
+  }
+}
 
-    console.log(error)
+export const getUser = async (req, res) => {
+  const userId = req.query.userId
+  const name = req.query.name
+  try {
+    const user = userId
+      ? await UserModal.findById(userId)
+      : await UserModal.findOne({ name: name })
+    const { password, updatedAt, ...other } = user._doc
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({ message: 'Something went wrong' })
   }
 }

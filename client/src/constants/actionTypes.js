@@ -1,14 +1,21 @@
-export const CREATE = 'CREATE';
-export const UPDATE = 'UPDATE';
-export const DELETE = 'DELETE';
-export const FETCH_ALL = 'FETCH_ALL';
-export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
-export const FETCH_POST = 'FETCH_POST';
-export const LIKE = 'LIKE';
-export const COMMENT = 'COMMENT';
-export const END_LOADING = 'END_LOADING';
-export const START_LOADING = 'START_LOADING';
-export const FETCH_BY_CREATOR = 'FETCH_BY_CREATOR';
+export const CREATE = 'CREATE'
+export const UPDATE = 'UPDATE'
+export const DELETE = 'DELETE'
+export const FETCH_ALL = 'FETCH_ALL'
+export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH'
+export const FETCH_POST = 'FETCH_POST'
+export const LIKE = 'LIKE'
+export const COMMENT = 'COMMENT'
+export const END_LOADING = 'END_LOADING'
+export const START_LOADING = 'START_LOADING'
+export const FETCH_BY_CREATOR = 'FETCH_BY_CREATOR'
 
-export const AUTH = 'AUTH';
-export const LOGOUT = 'LOGOUT';
+export const AUTH = 'AUTH'
+export const LOGOUT = 'LOGOUT'
+export const GET_USER = 'GET_USER'
+
+export const GET_CONVERSATIONS = 'GET_CONVERSATIONS'
+export const NEW_CONVERSATION = 'NEW_CONVERSATION'
+export const GET_TWO_CONVERSATIONS_OF_USERS = 'GET_TWO_CONVERSATIONS_OF_USERS'
+export const ADD_MESSAGE = 'ADD_MESSAGE'
+export const GET_MESSAGE = 'GET_MESSAGE'

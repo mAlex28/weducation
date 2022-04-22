@@ -13,7 +13,7 @@ export const newConversation = async (req, res) => {
   }
 }
 
-export const getConversation = async (req, res) => {
+export const getConversations = async (req, res) => {
   try {
     const conversation = await ConversatioModel.find({
       members: { $in: [req.params.userId] },

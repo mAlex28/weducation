@@ -1,20 +1,25 @@
 import React from 'react'
 import { Avatar, Typography } from '@material-ui/core'
+import moment from 'moment'
 
 import './styles.css'
 
-const Message = ({ own }) => {
+const Message = ({ message, own }) => {
   return (
     <div className={own ? 'message own' : 'message'}>
       <div className="messageTop">
-        <Avatar className="messageImg" src="" alt="" />
+        <Avatar className="messageImg" src="" alt="avatar" />
         <Typography className="messageText" component="p">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolore
-          itaque hic veniam doloribus suscipit, at architecto distinctio omnis
-          repudiandae.
+          {/* {message.text} */}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates,
+          illum quia consequatur quam, facere dolorem distinctio fugit autem
+          illo, culpa repellendus fuga exercitationem voluptatem mollitia
+          perspiciatis quod voluptate itaque inventore?
         </Typography>
       </div>
-      <div className="messageBottom">1 hour ago</div>
+      <div className="messageBottom">
+        {/* {moment(message.createdAt).fromNow()} */}1 hour ago
+      </div>
     </div>
   )
 }
