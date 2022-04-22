@@ -11,6 +11,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import { GoogleLogin } from 'react-google-login'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import FileBase from 'react-file-base64'
 
 import Icon from './icon'
 import { signin, signup } from '../../actions/auth'
@@ -21,6 +22,7 @@ import Input from './Input'
 const initialState = {
   firstName: '',
   lastName: '',
+  imageUrl: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -113,12 +115,24 @@ const SignUp = () => {
               handleShowPassword={handleShowPassword}
             />
             {isSignup && (
-              <Input
-                name="confirmPassword"
-                label="Repeat Password"
-                handleChange={handleChange}
-                type="password"
-              />
+              <>
+                <Input
+                  name="confirmPassword"
+                  label="Repeat Password"
+                  handleChange={handleChange}
+                  type="password"
+                />
+                <div className={classes.fileInput}>
+                  <label>Upload a profile picture</label> <br />
+                  <FileBase
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) => {
+                      setForm({ ...form, imageUrl: base64 })
+                    }}
+                  />
+                </div>
+              </>
             )}
           </Grid>
           <Button
