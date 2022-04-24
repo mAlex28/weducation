@@ -6,11 +6,10 @@ import {
   Avatar,
   Button,
   Fab,
-  IconButton,
 } from '@material-ui/core'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Message, ChatBubble } from '@material-ui/icons'
+import { ChatBubble } from '@material-ui/icons'
 import decode from 'jwt-decode'
 
 import logo from '../../images/logo.png'
@@ -59,11 +58,11 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            <Link to="/messenger">
+            {/* <Link to="/messenger">
               <Fab color="primary" aria-label="edit" size="medium">
                 <ChatBubble to="/messenger" />
               </Fab>
-            </Link>
+            </Link> */}
             <Avatar
               className={classes.purple}
               alt={user?.result.name}
