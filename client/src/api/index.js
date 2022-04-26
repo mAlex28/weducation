@@ -2,15 +2,15 @@ import axios from 'axios'
 
 const API = axios.create({ baseURL: 'http://localhost:5000' })
 
-// API.interceptors.request.use((req) => {
-//   if (localStorage.getItem('profile')) {
-//     req.headers.Authorization = `Bearer ${
-//       JSON.parse(localStorage.getItem('profile')).token
-//     }`
-//   }
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem('profile')) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem('profile')).token
+    }`
+  }
 
-//   return req
-// })
+  return req
+})
 
 export const fetchPost = (id) => API.get(`/posts/${id}`)
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`)
