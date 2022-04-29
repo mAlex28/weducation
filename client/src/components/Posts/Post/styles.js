@@ -1,57 +1,43 @@
 import { makeStyles } from '@material-ui/core/styles'
+import { deepPurple, blue } from '@material-ui/core/colors'
 
-export default makeStyles({
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backgroundBlendMode: 'darken',
-  },
-  border: {
-    border: 'solid',
-  },
-  fullHeightCard: {
-    // height: '100%',
-  },
+export default makeStyles((theme) => ({
   card: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '10px',
-    // height: '100%',
-    margin: '0px 50px',
+    height: '100%',
+    margin: '0px 0px',
     position: 'relative',
   },
-  overlay: {
-    position: 'absolute',
-    top: '20px',
-    left: '20px',
-    color: 'white',
+  cardDetails: {
+    flexDirection: 'column',
+    paddingLeft: '10px',
+    width: '100%',
   },
-  overlay2: {
-    position: 'absolute',
-    top: '20px',
-    right: '20px',
-    color: 'white',
-  },
-  grid: {
-    display: 'flex',
-  },
-  details: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '20px',
-  },
-  title: {
-    padding: '0 16px',
-  },
-  cardActions: {
-    padding: '0 16px 8px 16px',
-    display: 'flex',
-    justifyContent: 'space-between',
+  media: {
+    width: '200px',
+    padding: '20px',
   },
   cardAction: {
     display: 'block',
     textAlign: 'initial',
+    flex: '1 0 auto',
+    flexDirection: 'column',
   },
-})
+  title: {
+    padding: '0 16px',
+  },
+  details: {
+    display: 'flex',
+    margin: '20px',
+  },
+  cardActions: {
+    justifyContent: 'space-between',
+    display: 'flex',
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: blue[500],
+  },
+}))
