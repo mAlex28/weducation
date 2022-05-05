@@ -1,5 +1,8 @@
-import MessageModel from '../models/message.js'
+import express from "express"
+import mongoose from "mongoose"
 
+import MessageModel from "../models/message.js"
+const router = express.Router()
 export const addMessage = async (req, res) => {
   const newMessage = new MessageModel(req.body)
 
@@ -21,3 +24,4 @@ export const getMessage = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+export default router

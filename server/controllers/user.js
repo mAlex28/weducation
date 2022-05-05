@@ -1,9 +1,9 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
-import UserModal from '../models/user.js'
+import UserModal from "../models/user.js"
 
-const secret = 'test'
+const secret = "test"
 
 export const signin = async (req, res) => {
   const { email, password } = req.body
@@ -16,15 +16,15 @@ export const signin = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password)
 
     if (!isPasswordCorrect)
-      return res.status(400).json({ message: 'Invalid credentials' })
+      return res.status(400).json({ message: "Invalid credentials" })
 
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
-      expiresIn: '5h',
+      expiresIn: "5h",
     })
 
     res.status(200).json({ result: oldUser, token })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: "Something went wrong" })
   }
 }
 
@@ -34,7 +34,7 @@ export const signup = async (req, res) => {
   try {
     const oldUser = await UserModal.findOne({ email })
 
-    if (oldUser) return res.status(400).json({ message: 'User already exists' })
+    if (oldUser) return res.status(400).json({ message: "User already exists" })
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -46,25 +46,25 @@ export const signup = async (req, res) => {
     })
 
     const token = jwt.sign({ email: result.email, id: result._id }, secret, {
-      expiresIn: '5h',
+      expiresIn: "5h",
     })
 
     res.status(201).json({ result, token })
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: "Something went wrong" })
   }
 }
 
 export const getUser = async (req, res) => {
   const userId = req.query.userId
-  const name = req.query.name
+  const username = req.query.username
   try {
     const user = userId
       ? await UserModal.findById(userId)
-      : await UserModal.findOne({ name: name })
+      : await UserModal.findOne({ username: username })
     const { password, updatedAt, ...other } = user._doc
-    res.status(200).json(user)
+    res.status(200).json(other)
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: "Something went wrong" })
   }
 }

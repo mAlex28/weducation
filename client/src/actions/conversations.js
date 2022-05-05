@@ -1,9 +1,10 @@
 import {
   GET_CONVERSATIONS,
+  GET_USER,
   NEW_CONVERSATION,
   GET_TWO_CONVERSATIONS_OF_USERS,
-} from '../constants/actionTypes'
-import * as api from '../api/index.js'
+} from "../constants/actionTypes"
+import * as api from "../api/index.js"
 
 export const getConversations = (id) => async (dispatch) => {
   try {

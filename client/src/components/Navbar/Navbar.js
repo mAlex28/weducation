@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 import {
   AppBar,
   Typography,
@@ -6,18 +6,18 @@ import {
   Avatar,
   Button,
   Fab,
-} from '@material-ui/core'
-import { Link, useHistory, useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { ChatBubble } from '@material-ui/icons'
-import decode from 'jwt-decode'
+} from "@material-ui/core"
+import { Link, useHistory, useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { ChatBubble } from "@material-ui/icons"
+import decode from "jwt-decode"
 
-import logo from '../../images/logo.png'
-import * as actionType from '../../constants/actionTypes'
-import useStyles from './styles'
+import logo from "../../images/logo.png"
+import * as actionType from "../../constants/actionTypes"
+import useStyles from "./styles"
 
 const Navbar = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
   const dispatch = useDispatch()
   const location = useLocation()
   const history = useHistory()
@@ -26,7 +26,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: actionType.LOGOUT })
 
-    history.push('/auth')
+    history.push("/auth")
 
     setUser(null)
   }
@@ -40,7 +40,7 @@ const Navbar = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout()
     }
 
-    setUser(JSON.parse(localStorage.getItem('profile')))
+    setUser(JSON.parse(localStorage.getItem("profile")))
   }, [location])
 
   return (
@@ -58,11 +58,11 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            {/* <Link to="/messenger">
+            <Link to="/messenger">
               <Fab color="primary" aria-label="edit" size="medium">
                 <ChatBubble to="/messenger" />
               </Fab>
-            </Link> */}
+            </Link>
             <Avatar
               className={classes.purple}
               alt={user?.result.name}

@@ -1,20 +1,15 @@
-import express from 'express'
+import express from "express"
 
 import {
   newConversation,
   getConversations,
   getTwoConversationsOfUsers,
-} from '../controllers/conversations.js'
+} from "../controllers/conversations.js"
 
 const router = express.Router()
 
-router.post('/', newConversation)
-router.get('/:userId', getConversations)
-router.get('/find/:firstUserId/:secondUserId', getTwoConversationsOfUsers)
+router.post("/", newConversation)
+router.get("/:userId", getConversations)
+router.get("/find/:firstUserId/:secondUserId", getTwoConversationsOfUsers)
 
 export default router
-
-// {
-//     "senderId": "6262cea4c013c2a10fe034b3",
-//     "receiverId": "62601223a7edb39728742762"
-// }

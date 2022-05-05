@@ -1,4 +1,8 @@
-import ConversatioModel from '../models/conversation.js'
+import express from "express"
+import mongoose from "mongoose"
+
+import ConversatioModel from "../models/conversation.js"
+const router = express.Router()
 
 export const newConversation = async (req, res) => {
   const newCon = new ConversatioModel({
@@ -34,3 +38,5 @@ export const getTwoConversationsOfUsers = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
+export default router
