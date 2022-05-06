@@ -1,6 +1,6 @@
 # Weducation
 
-API is not hosted yet
+API is hosted in : https://weducation.herokuapp.com/
 
 ### How to run
 Clone and move to the root directory
