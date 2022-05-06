@@ -1,12 +1,9 @@
-import React from 'react'
-import { Avatar } from '@material-ui/core'
+import React from "react"
+import { Avatar } from "@material-ui/core"
 
-import './styles.css'
+import "./styles.css"
 
-const ChatOnline = ({ conversation, currentUser }) => {
-  // const [user, setUser] = useState(null)
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER
-
+const ChatOnline = () => {
   return (
     <div className="chatOnline">
       <div className="chatOnlineFriend" onClick={() => {}}>
@@ -23,7 +20,7 @@ const ChatOnline = ({ conversation, currentUser }) => {
           /> */}
           <div className="chatOnlineBadge"></div>
         </div>
-        <span className="chatOnlineName">John doe</span>
+        <span className="chatOnlineName">d</span>
       </div>
     </div>
   )

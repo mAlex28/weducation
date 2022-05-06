@@ -63,13 +63,15 @@ const Navbar = () => {
                 <ChatBubble to="/messenger" />
               </Fab>
             </Link>
-            <Avatar
-              className={classes.purple}
-              alt={user?.result.name}
-              src={user?.result.imageUrl}
-            >
-              {user?.result.name.charAt(0)}
-            </Avatar>
+            <Link to="/profile">
+              <Avatar
+                className={classes.purple}
+                alt={user?.result.name}
+                src={user?.result.imageUrl}
+              >
+                {user?.result.name.charAt(0)}
+              </Avatar>
+            </Link>
             <Typography className={classes.userName} variant="h6">
               {user?.result.name}
             </Typography>

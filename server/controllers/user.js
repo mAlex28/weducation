@@ -68,3 +68,13 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" })
   }
 }
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const results = await UserModal.find()
+    res.status(200).json(results)
+  } catch (error) {
+    console.log(error)
+    res.status(404).json({ message: "Something went wrong" })
+  }
+}

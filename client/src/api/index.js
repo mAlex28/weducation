@@ -33,7 +33,7 @@ export const deletePost = (id) => API.delete(`/posts/${id}`)
 export const signIn = (formData) => API.post("/user/signin", formData)
 export const signUp = (formData) => API.post("/user/signup", formData)
 export const getUser = (id) => API.get(`/user/getuser?userId=${id}`)
-
+export const getUsers = () => API.get("/user")
 export const getConversations = (id) => API.get(`/conversations/${id}`)
 export const newConversation = () => API.get("/conversations")
 export const getTwoConversationsOfUsers = (fid, sid) =>
