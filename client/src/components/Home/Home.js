@@ -89,10 +89,12 @@ const Home = () => {
                 value={tags}
                 onAdd={(chip) => handleAddChip(chip)}
                 onDelete={(chip) => handleDeleteChip(chip)}
-                label="Search Tags"
+                label="Search By Tags"
                 variant="outlined"
+                helperText="Press 'Enter' to select a tag after typing"
               />
               <Button
+              style={{marginTop: '10px'}}
                 onClick={searchPost}
                 className={classes.searchButton}
                 variant="contained"

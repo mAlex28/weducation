@@ -91,10 +91,12 @@ const Form = ({ currentId, setCurrentId }) => {
           name="message"
           variant="outlined"
           label="Description"
+          inputProps={{maxLength: 8000 }}
           fullWidth
           multiline
-          rows={4}
+          rows={10}
           value={postData.message}
+          helperText="8000 characters max"
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
           }

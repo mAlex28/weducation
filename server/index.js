@@ -8,9 +8,8 @@ import userRouter from "./routes/user.js"
 import conversationRoutes from "./routes/conversations.js"
 import messageRoutes from "./routes/messages.js"
 
-dotenv.config()
-
 const app = express()
+dotenv.config()
 
 app.use(express.json({ limit: "30mb", extended: true }))
 app.use(express.urlencoded({ limit: "30mb", extended: true }))
@@ -20,6 +19,10 @@ app.use("/posts", postRoutes)
 app.use("/user", userRouter)
 app.use("/conversations", conversationRoutes)
 app.use("/messages", messageRoutes)
+
+app.get("/", (req, res) => {
+  res.send("API is running")
+})
 
 const PORT = process.env.PORT || 5000
 
