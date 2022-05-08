@@ -15,7 +15,7 @@ export const updateUser = (id, user) => async (dispatch) => {
   try {
     const { data } = await api.updateUser(id, user)
 
-    dispatch({ type: UPDATE_USER, payload: data })
+    dispatch({ type: UPDATE_USER, data })
   } catch (error) {
     console.log(error)
   }

@@ -12,19 +12,15 @@ import {
 import FileBase from "react-file-base64"
 import { useHistory } from 'react-router-dom'
 
-
-
 import useStyles from "./styles"
 import Input from "./Input"
 import { deleteUser, updateUser } from "../../actions/users"
 
-  const userd = JSON.parse(localStorage.getItem("profile"))
-
 const initialState = {
-  name: userd?.result.name,
-  imageUrl:  userd?.result.imageUrl,
-  email:  userd?.result.email,
-  password:  userd?.result.password,
+  name: "",
+  imageUrl: "",
+  email: "",
+  password:  "",
 }
 
 const UserProfile = () => {
@@ -86,6 +82,7 @@ const UserProfile = () => {
             <Input
               name="password"
               label="Password"
+              value={user?.result.password}
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
