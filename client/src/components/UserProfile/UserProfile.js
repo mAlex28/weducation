@@ -1,7 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Card,
   Grid,
   Paper,
   Typography,
@@ -16,11 +15,14 @@ import useStyles from "./styles"
 import Input from "./Input"
 import { deleteUser, updateUser } from "../../actions/users"
 
+const userd = JSON.parse(localStorage.getItem("profile"))
+
+// get values from the local storage and set as initials
 const initialState = {
-  name: "",
-  imageUrl: "",
-  email: "",
-  password:  "",
+  name: userd?.result.name,
+  imageUrl: userd?.result.imageUrl,
+  email: userd?.result.email,
+  password: userd?.result.password,
 }
 
 const UserProfile = () => {

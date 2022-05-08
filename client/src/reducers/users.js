@@ -10,7 +10,7 @@ export default (state = { isLoading:true, userlist: [] }, action) => {
       return { ...state, userlist: action.payload.data }
     case UPDATE_USER:
         localStorage.clear()
-        localStorage.setItem("profile", JSON.stringify({ ...action.payload.data }))
+        localStorage.setItem("profile", JSON.stringify({ ...action.payload }))
       return {...state, userlist: state.userlist.map((user) => (user._id === action.payload._id ? action.payload : user)) }
     case DELETE_USER:
        localStorage.clear()

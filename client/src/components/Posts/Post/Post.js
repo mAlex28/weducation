@@ -68,7 +68,6 @@ const Post = ({ post, setCurrentId }) => {
   }
 
   const openPost = (e) => {
-    // dispatch(getPost(post._id, history));
 
     history.push(`/posts/${post._id}`)
   }
