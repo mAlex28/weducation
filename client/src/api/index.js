@@ -29,11 +29,13 @@ export const comment = (value, id) =>
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}`, updatedPost)
 export const deletePost = (id) => API.delete(`/posts/${id}`)
-
+export const fetchUsersPostsByCount = (id) => API.get(`/posts/count?creator=${id}`)
 export const signIn = (formData) => API.post("/user/signin", formData)
 export const signUp = (formData) => API.post("/user/signup", formData)
 export const getUser = (id) => API.get(`/user/getuser?userId=${id}`)
 export const getUsers = () => API.get("/user")
+export const updateUser = (id, updatedUser) => API.patch(`/user/${id}`, updatedUser)
+export const deleteUser = (id) => API.delete(`/user/${id}`)
 export const getConversations = (id) => API.get(`/conversations/${id}`)
 export const newConversation = () => API.get("/conversations")
 export const getTwoConversationsOfUsers = (fid, sid) =>

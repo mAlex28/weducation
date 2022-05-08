@@ -47,6 +47,19 @@ export const getPostsByCreator = async (req, res) => {
     }
 }
 
+export const getNumberOfPostsByCreator = async (req, res) => {
+    const { creator } = req.query;
+
+    try {
+        const posts = await PostMessage.find({ creator }).countDocuments();
+
+        res.json({ data: posts });
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+}
+
+
 export const getPost = async (req, res) => { 
     const { id } = req.params;
 

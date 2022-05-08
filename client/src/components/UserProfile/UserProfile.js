@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Card,
   Grid,
@@ -9,28 +10,44 @@ import {
   Container,
 } from "@material-ui/core"
 import FileBase from "react-file-base64"
+import { useHistory } from 'react-router-dom'
+
+
 
 import useStyles from "./styles"
 import Input from "./Input"
+import { deleteUser, updateUser } from "../../actions/users"
+
+  const userd = JSON.parse(localStorage.getItem("profile"))
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  imageUrl: "",
-  email: "",
-  password: "",
+  name: userd?.result.name,
+  imageUrl:  userd?.result.imageUrl,
+  email:  userd?.result.email,
+  password:  userd?.result.password,
 }
 
 const UserProfile = () => {
+  const user = JSON.parse(localStorage.getItem("profile"))
   const [form, setForm] = useState(initialState)
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const history = useHistory()
   const [showPassword, setShowPassword] = useState(false)
   const handleShowPassword = () => setShowPassword(!showPassword)
 
-  const handleChange = () => {}
+  const handleChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value})
+  }
 
-  const handleSubmit = () => {}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(updateUser(user?.result._id, form))
+  }
+
+  const deleteAccount = () => {
+    dispatch(deleteUser(user?.result._id, history))
+  } 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,11 +63,8 @@ const UserProfile = () => {
           User Profile
         </Typography>
         <div>
-          <Typography component="h1" variant="h5">
+          <Typography component="p">
             2 Posts
-          </Typography>
-          <Typography component="h1" variant="h5">
-            5 Comments
           </Typography>
         </div>
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -58,7 +72,7 @@ const UserProfile = () => {
             <Input
               name="name"
               label="Name"
-              value={user?.result.name}
+              value={user?.result?.name}
               handleChange={handleChange}
               autoFocus
             />
@@ -96,6 +110,9 @@ const UserProfile = () => {
           >
             Update Account
           </Button>
+           <Button variant="text" size="small" onClick={deleteAccount} fullWidth style={{color: 'red'}}>
+          Delete account
+        </Button>
         </form>
       </Paper>
     </Container>
