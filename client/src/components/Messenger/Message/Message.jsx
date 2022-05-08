@@ -8,14 +8,6 @@ const Message = ({ message, own }) => {
   return (
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">
-        <Avatar className="messageImg" src="" alt="avatar" />
-        {/* <Avatar
-          className="messageImg"
-          alt={conuser?.name}
-          src={conuser?.profileUrl}
-        >
-          {conuser?.name.charAt(0)}
-        </Avatar> */}
         <Typography className="messageText" component="p">
           {message?.text}
         </Typography>

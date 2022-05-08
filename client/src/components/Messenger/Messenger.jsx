@@ -11,22 +11,22 @@ import { getConversations } from "../../actions/conversations"
 import { addMessage, getMessage, getUsers } from "../../api"
 
 const Messenger = () => {
-  //   const classes = useStyles()
+    // const classes = useStyles()
   const user = JSON.parse(localStorage.getItem("profile"))
   const { conversations } = useSelector((state) => state.conversations)
-  // const { userlist } = useSelector((state) => state.userlist)
+  const { userlist } = useSelector((state) => state.userlist)
   const [currentChat, setCurrentChat] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState("")
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [onlineUsers, setOnlineUsers] = useState([])
-  // const [allUsers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState([])
   const dispatch = useDispatch()
   const scrollRef = useRef()
   const socket = useRef()
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900")
+    socket.current = io("ws://localhost:8000")
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -42,19 +42,19 @@ const Messenger = () => {
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, currentChat])
 
-  // useEffect(() => {
-  //   const getAllUsers = async () => {
-  //     try {
-  //       const res = await getUsers()
-  //       setAllUsers(res.data)
+  useEffect(() => {
+    const getAllUsers = async () => {
+      try {
+        const res = await getUsers()
+        setAllUsers(res.data)
 
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
+      } catch (err) {
+        console.log(err)
+      }
+    }
 
-  //   getAllUsers()
-  // }, [user])
+    getAllUsers()
+  }, [user])
 
   useEffect(() => {
     dispatch(getConversations(user?.result?._id))
@@ -64,9 +64,9 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", user?.result?._id)
     socket.current.on("getUsers", (users) => {
-      // setOnlineUsers(
-      //   userlist.filter((f) => users.some((u) => f._id == u.userId))
-      // )
+      setOnlineUsers(
+        userlist.filter((f) => users.some((u) => f._id == u.userId))
+      )
     })
   }, [user])
 
@@ -169,19 +169,7 @@ const Messenger = () => {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <div className="chatOnline">
-              {onlineUsers?.map((online) => (
-                <div className="chatOnlineFriend" onClick={() => {}}>
-                  <div className="chatOnlineImgContainer">
-                    {/* <Avatar className="conversationImg" src="" alt="" /> */}
-
-                    <div className="chatOnlineBadge"></div>
-                  </div>
-                  <span className="chatOnlineName">{online.name}</span>
-                </div>
-              ))}
-            </div>
-            {/* <ChatOnline /> */}
+            <ChatOnline currentUserId={user?.result._id} onlineUsers={onlineUsers} />
           </div>
         </div>
       </div>
