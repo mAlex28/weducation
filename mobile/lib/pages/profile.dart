@@ -1,4 +1,4 @@
-import 'package:post_ui/pages/home.dart';
+import 'package:mobile/pages/home.dart';
 
 import 'login.dart';
 import '/style/textstyle.dart';
@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => const HomeScreen(),
                             ),
                           );
                         }),

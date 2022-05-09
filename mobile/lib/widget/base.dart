@@ -16,7 +16,7 @@ class KTextFiled extends StatelessWidget {
         controller: controller,
         autocorrect: true,
         decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(color: Colors.grey),
           filled: true,
           fillColor: Colors.white70,
           enabledBorder: const OutlineInputBorder(
@@ -24,7 +24,7 @@ class KTextFiled extends StatelessWidget {
             borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(color: Kmaincolor500),
           ),
         ),

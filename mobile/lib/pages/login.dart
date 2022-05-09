@@ -1,5 +1,8 @@
-import 'package:post_ui/pages/home.dart';
-import 'package:post_ui/pages/register.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile/models/login_model.dart';
+import 'package:mobile/pages/home.dart';
+import 'package:mobile/pages/register.dart';
+import 'package:mobile/services/api_services.dart';
 
 import '/widget/base.dart';
 import 'package:flutter/material.dart';
@@ -43,36 +46,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Email',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         KTextFiled(email, false),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           'Password',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         KTextFiled(password, true),
                         Visibility(
-                          child: Text('Email or password wrong !'),
+                          child: const Text('Email or password wrong !'),
                           visible: error,
                         ),
-                        Center(
+                        const Center(
                           child: TextButton(
                               onPressed: null, child: Text('Forgot Password?')),
                         ),
@@ -81,17 +84,51 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (_) {
-                                return HomeScreen();
-                              }));
+                              try {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                LoginRequest model = LoginRequest(
+                                    email: email.text.trim(),
+                                    password: password.text.trim());
+
+                                APIService.login(model).then((response) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  if (response) {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(builder: (_) {
+                                      return const HomeScreen();
+                                    }));
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: 'Invalid username / password',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.grey,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  }
+                                });
+                              } catch (e) {
+                                Fluttertoast.showToast(
+                                    msg: 'Error signing in',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 14.0);
+                              }
                             },
                             child: isLoading
-                                ? CircularProgressIndicator()
-                                : Text('Login'),
+                                ? const CircularProgressIndicator()
+                                : const Text('Login'),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         SizedBox(
                             width: double.infinity,
                             height: 45,
@@ -99,10 +136,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .push(MaterialPageRoute(builder: (_) {
-                                    return RegisterScreen();
+                                    return const RegisterScreen();
                                   }));
                                 },
-                                child: Text('Register'))),
+                                child: const Text('Register'))),
                       ],
                     ),
                   ),
