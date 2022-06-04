@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Avatar,
   Button,
@@ -7,7 +7,9 @@ import {
   Grid,
   Typography,
   Container,
+  Snackbar,
 } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
 import { useHistory } from 'react-router-dom'
 import { GoogleLogin } from 'react-google-login'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -18,6 +20,12 @@ import { signin, signup } from '../../actions/auth'
 import { AUTH } from '../../constants/actionTypes'
 import useStyles from './styles'
 import Input from './Input'
+import { useEffect } from 'react'
+
+
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 const initialState = {
   firstName: '',
@@ -31,12 +39,15 @@ const initialState = {
 const SignUp = () => {
   const [form, setForm] = useState(initialState)
   const [isSignup, setIsSignup] = useState(false)
+  const [error, setError] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
   const classes = useStyles()
 
   const [showPassword, setShowPassword] = useState(false)
   const handleShowPassword = () => setShowPassword(!showPassword)
+
+  const message = useSelector((state) => state.errorMessage)
 
   const switchMode = () => {
     setForm(initialState)
@@ -54,6 +65,16 @@ const SignUp = () => {
     }
   }
 
+  useEffect(() => {
+    if (message?.emessage === null || message?.emessage === undefined) {
+      setError(false)
+      console.log(error)
+    } else {
+      setError(true)
+      console.log(error)
+    }
+  })
+
   const googleSuccess = async (res) => {
     const result = res?.profileObj
     const token = res?.tokenId
@@ -68,10 +89,18 @@ const SignUp = () => {
   }
 
   const googleError = () =>
-    console.log('Google Sign In was unsuccessful. Try again later')
+    setError(true)
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value })
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setError(false)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -135,6 +164,9 @@ const SignUp = () => {
               </>
             )}
           </Grid>
+          <Snackbar open={error}>
+            <Alert severity="error">Invalid Credentials!</Alert>
+          </Snackbar>
           <Button
             type="submit"
             fullWidth
