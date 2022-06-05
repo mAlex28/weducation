@@ -7,20 +7,24 @@ import Conversation from "./Conversations/Conversation"
 import Message from "./Message/Message"
 
 import "./styles.css"
+import {getUsers} from "../../actions/users"
 import { getConversations } from "../../actions/conversations"
-import { addMessage, getMessage, getUsers } from "../../api"
+import { addMessage, getMessage } from "../../api"
 
 const Messenger = () => {
     // const classes = useStyles()
   const user = JSON.parse(localStorage.getItem("profile"))
+
   const { conversations } = useSelector((state) => state.conversations)
-  const { userlist } = useSelector((state) => state.userlist)
+  const { isLoading, userlist} = useSelector((state) => state.users)
+
+  const [allUsers, setAllUsers] = useState([])
+  const [onlineUsers, setOnlineUsers] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState("")
   const [arrivalMessage, setArrivalMessage] = useState(null)
-  const [onlineUsers, setOnlineUsers] = useState([])
-  const [allUsers, setAllUsers] = useState([])
+
   const dispatch = useDispatch()
   const scrollRef = useRef()
   const socket = useRef()
@@ -37,38 +41,26 @@ const Messenger = () => {
   }, [])
 
   useEffect(() => {
+    dispatch(getConversations(user?.result?._id))
+  }, [dispatch, user.result._id])
+
+
+  useEffect(() => {
+      dispatch(getUsers())
+  }, [dispatch])
+
+  useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, currentChat])
 
   useEffect(() => {
-    const getAllUsers = async () => {
-      try {
-        const res = await getUsers()
-        setAllUsers(res.data)
-
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    getAllUsers()
-  }, [user])
-
-  useEffect(() => {
-    dispatch(getConversations(user?.result?._id))
-    dispatch(getUsers())
-  }, [dispatch])
-
-  useEffect(() => {
     socket.current.emit("addUser", user?.result?._id)
     socket.current.on("getUsers", (users) => {
-      setOnlineUsers(
-        userlist.filter((f) => users.some((u) => f._id == u.userId))
-      )
+      setOnlineUsers(userlist.filter((f) => users.some((u) => u.userId == f._id)))
     })
-  }, [user])
+  }, [user.result._id, userlist])
 
   useEffect(() => {
     const getMessages = async () => {
@@ -99,9 +91,9 @@ const Messenger = () => {
 
     // send to the socket.io
     socket.current.emit("sendMessage", {
-      senderId: user?.result?._id,
-      receiverId: receiverId,
-      text: newMessage,
+      senderId:user?.result?._id,
+      receiverId:receiverId,
+      text:newMessage
     })
 
     try {
@@ -119,6 +111,7 @@ const Messenger = () => {
       behavior: "smooth",
     })
   }, [messages])
+
 
   return (
     <>
@@ -169,7 +162,7 @@ const Messenger = () => {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline currentUserId={user?.result._id} onlineUsers={onlineUsers} />
+            <ChatOnline currentUserId={user?.result._id} onlineUsers={onlineUsers} setCurrentChat={setCurrentChat} />
           </div>
         </div>
       </div>

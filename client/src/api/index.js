@@ -5,9 +5,8 @@ const API = axios.create({ baseURL: "http://localhost:5000" })
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile")).token
-    }`
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token
+      }`
   }
 
   return req
@@ -19,8 +18,7 @@ export const fetchPostsByCreator = (name) =>
   API.get(`/posts/creator?name=${name}`)
 export const fetchPostsBySearch = (searchQuery) =>
   API.get(
-    `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
-      searchQuery.tags
+    `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${searchQuery.tags
     }`
   )
 export const createPost = (newPost) => API.post("/posts", newPost)
@@ -38,7 +36,7 @@ export const getUsers = () => API.get("/user")
 export const updateUser = (id, updatedUser) => API.patch(`/user/${id}`, updatedUser)
 export const deleteUser = (id) => API.delete(`/user/${id}`)
 export const getConversations = (id) => API.get(`/conversations/${id}`)
-export const newConversation = () => API.get("/conversations")
+export const newConversation = (conbody) => API.post("/conversations", conbody)
 export const getTwoConversationsOfUsers = (fid, sid) =>
   API.get(`/conversations/find/${fid}/${sid}`)
 export const addMessage = (formData) => API.post("/messages", formData)

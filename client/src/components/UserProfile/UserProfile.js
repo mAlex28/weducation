@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from "react"
+import { useDispatch } from 'react-redux'
 import {
   Grid,
   Paper,
@@ -35,7 +35,7 @@ const UserProfile = () => {
   const handleShowPassword = () => setShowPassword(!showPassword)
 
   const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value})
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (e) => {
@@ -45,7 +45,7 @@ const UserProfile = () => {
 
   const deleteAccount = () => {
     dispatch(deleteUser(user?.result._id, history))
-  } 
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -81,14 +81,6 @@ const UserProfile = () => {
               value={user?.result.email}
               type="email"
             />
-            <Input
-              name="password"
-              label="Password"
-              value={user?.result.password}
-              handleChange={handleChange}
-              type={showPassword ? "text" : "password"}
-              handleShowPassword={handleShowPassword}
-            />
             <div className={classes.fileInput}>
               <label>Upload a new profile picture</label> <br />
               <FileBase
@@ -109,9 +101,9 @@ const UserProfile = () => {
           >
             Update Account
           </Button>
-           <Button variant="text" size="small" onClick={deleteAccount} fullWidth style={{color: 'red'}}>
-          Delete account
-        </Button>
+          <Button variant="text" size="small" onClick={deleteAccount} fullWidth style={{ color: 'red' }}>
+            Delete account
+          </Button>
         </form>
       </Paper>
     </Container>

@@ -72,32 +72,32 @@ export const getUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const results = await UserModal.find()
-    res.status(200).json(results)
+    const allUsers = await UserModal.find()
+    res.json({ data: allUsers })
   } catch (error) {
     console.log(error)
     res.status(404).json({ message: "Something went wrong" })
   }
 }
 export const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { name, email, imageUrl, password } = req.body;
-    
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Could not update user`);
+  const { id } = req.params;
+  const { name, email, imageUrl, password } = req.body;
 
-    const updatedUser = { name, email, imageUrl, password, _id: id };
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Could not update user`);
 
-    await UserModal.findByIdAndUpdate(id, updatedUser, { new: true });
+  const updatedUser = { name, email, imageUrl, password, _id: id };
 
-    res.json(updatedUser);
+  await UserModal.findByIdAndUpdate(id, updatedUser, { new: true });
+
+  res.json(updatedUser);
 }
 
 export const deleteUser = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('Could not delete user');
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('Could not delete user');
 
-    await UserModal.findByIdAndRemove(id);
+  await UserModal.findByIdAndRemove(id);
 
-    res.json({ message: "User deleted successfully." });
+  res.json({ message: "User deleted successfully." });
 }
