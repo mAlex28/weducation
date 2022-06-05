@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
+import { Button, Container, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { io } from "socket.io-client"
 
@@ -6,17 +7,18 @@ import ChatOnline from "./ChatOnline/ChatOnline"
 import Conversation from "./Conversations/Conversation"
 import Message from "./Message/Message"
 
+import useStyles from "./styles"
 import "./styles.css"
-import {getUsers} from "../../actions/users"
+import { getUsers } from "../../actions/users"
 import { getConversations } from "../../actions/conversations"
 import { addMessage, getMessage } from "../../api"
 
 const Messenger = () => {
-    // const classes = useStyles()
+  const classes = useStyles()
   const user = JSON.parse(localStorage.getItem("profile"))
 
   const { conversations } = useSelector((state) => state.conversations)
-  const { isLoading, userlist} = useSelector((state) => state.users)
+  const { isLoading, userlist } = useSelector((state) => state.users)
 
   const [allUsers, setAllUsers] = useState([])
   const [onlineUsers, setOnlineUsers] = useState([])
@@ -44,9 +46,8 @@ const Messenger = () => {
     dispatch(getConversations(user?.result?._id))
   }, [dispatch, user.result._id])
 
-
   useEffect(() => {
-      dispatch(getUsers())
+    dispatch(getUsers())
   }, [dispatch])
 
   useEffect(() => {
@@ -58,7 +59,9 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", user?.result?._id)
     socket.current.on("getUsers", (users) => {
-      setOnlineUsers(userlist.filter((f) => users.some((u) => u.userId == f._id)))
+      setOnlineUsers(
+        userlist.filter((f) => users.some((u) => u.userId == f._id))
+      )
     })
   }, [user.result._id, userlist])
 
@@ -91,9 +94,9 @@ const Messenger = () => {
 
     // send to the socket.io
     socket.current.emit("sendMessage", {
-      senderId:user?.result?._id,
-      receiverId:receiverId,
-      text:newMessage
+      senderId: user?.result?._id,
+      receiverId: receiverId,
+      text: newMessage,
     })
 
     try {
@@ -112,60 +115,69 @@ const Messenger = () => {
     })
   }, [messages])
 
-
   return (
     <>
-      <div className="messenger">
-        <div className="chatMenu">
-          <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
-            {conversations.map((c) => (
-              <div onClick={() => setCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user?.result} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="chatBox">
-          <div className="chatBoxWrapper">
-            {currentChat ? (
-              <>
-                <div className="chatBoxTop">
-                  {messages.map((msg) => (
-                    <div ref={scrollRef}>
-                      <Message
-                        message={msg}
-                        own={msg.sender === user?.result?._id}
-                      />
-                    </div>
-                  ))}
+      <Container className={classes.messenger} maxWidth="xl">
+        <Grid
+          container
+          justify="space-between"
+          alignItems="stretch"
+          spacing={3}
+        >
+          <Grid item xs={12} sm={6} md={9} className={classes.chatMenu}>
+            <Paper className={classes.chatMenuWrapper}>
+               <Typography variant="subtitle1" align="left" className={classes.prevChatTypography}>
+              Previous Chats
+            </Typography>
+              {conversations.map((c) => (
+                <div onClick={() => setCurrentChat(c)}>
+                  <Conversation conversation={c} currentUser={user?.result} />
                 </div>
-                <div className="chatBoxBottom">
-                  <textarea
-                    placeholder="Send message..."
-                    className="chatMessageInput"
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    value={newMessage}
-                    rows={1}
-                  />
-                  <button className="chatSubmitButton" onClick={handleSubmit}>
-                    Send
-                  </button>
-                </div>
-              </>
-            ) : (
-              <span className="noConversationText">
-                Open a conversation to start a chat
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline currentUserId={user?.result._id} onlineUsers={onlineUsers} setCurrentChat={setCurrentChat} />
-          </div>
-        </div>
-      </div>
+              ))}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={9} className={classes.chatBox}>
+            <div className="chatBoxWrapper">
+              {currentChat ? (
+                <>
+                  <div className="chatBoxTop">
+                    {messages.map((msg) => (
+                      <div ref={scrollRef}>
+                        <Message
+                          message={msg}
+                          own={msg.sender === user?.result?._id}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className={classes.chatBoxBottom}>
+                    <TextField placeholder="Type message..." fullWidth multiline className={classes.chatMessageInput} onChange={(e) => setNewMessage(e.target.value)} value={newMessage}/>
+                    <Button className={classes.chatSubmitButton} onClick={handleSubmit}>
+                      Send
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <Typography variant="h6" className={classes.noConversationText}>
+                  Open a conversation to start a chat
+                </Typography>
+              )}
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6} md={9} className={classes.chatOnline}>
+            <Paper className={classes.chatOnlineWrapper}>
+                 <Typography variant="subtitle1" align="left" className={classes.prevChatTypography}>
+              Online users
+            </Typography>
+              <ChatOnline
+                currentUserId={user?.result._id}
+                onlineUsers={onlineUsers}
+                setCurrentChat={setCurrentChat}
+              />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   )
 }

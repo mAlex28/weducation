@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles"
 
 export default makeStyles((theme) => ({
   messenger: {
-    height: "calc(100vh - 70px)",
+    height: "calc(100vh - 130px)",
     display: "flex",
   },
   chatMenu: {
@@ -10,6 +10,9 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       flex: 1,
     },
+  },
+  prevChatTypography: {
+    margin: '10px',
   },
   chatMenuInput: {
     width: "90%",
@@ -45,7 +48,6 @@ export default makeStyles((theme) => ({
   },
   chatMessageInput: {
     width: "80%",
-    height: "90px",
     padding: "10px",
   },
   chatSubmitButton: {
@@ -72,8 +74,7 @@ export default makeStyles((theme) => ({
   noConversationText: {
     position: "absolute",
     top: "10%",
-    fontSize: "30px",
-    color: "rgb(224, 220, 220)",
+    color: "rgb(192, 192, 192)",
     cursor: "default",
   },
 }))

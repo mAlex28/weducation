@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Avatar } from "@material-ui/core"
+import { Avatar, Typography } from "@material-ui/core"
 import axios from "axios"
 
 import "./styles.css"
+import useStyles from "./styles"
 
 const Conversation = ({ conversation, currentUser }) => {
+  const classes = useStyles()
   const [conuser, setConuser] = useState(null)
 
   useEffect(() => {
@@ -27,13 +28,11 @@ const Conversation = ({ conversation, currentUser }) => {
   return (
     <div className="conversation">
       <Avatar
-        className="conversationImg"
+        className={classes.conversationImg}
         alt={conuser?.name}
         src={conuser?.profileUrl}
-      >
-        {conuser?.name.charAt(0)}
-      </Avatar>
-      <span className="conversationName">{conuser?.name}</span>
+      />
+      <Typography variant="body1" className={classes.conversationName}>{conuser?.name}</Typography>
     </div>
   )
 }

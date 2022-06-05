@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className={classes.homeContainer}>
         <Grid
           container
           justify="space-between"
@@ -94,7 +94,7 @@ const Home = () => {
                 helperText="Press 'Enter' to select a tag after typing"
               />
               <Button
-              style={{marginTop: '10px'}}
+                style={{ marginTop: '10px' }}
                 onClick={searchPost}
                 className={classes.searchButton}
                 variant="contained"

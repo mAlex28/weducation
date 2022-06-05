@@ -1,10 +1,12 @@
 import React from "react"
 import axios from "axios"
-import { Avatar } from "@material-ui/core"
+import { Avatar, Typography } from "@material-ui/core"
 
 import "./styles.css"
+import useStyles from "./styles"
 
 const ChatOnline = ({ onlineUsers, currentUserId, setCurrentChat }) => {
+  const classes = useStyles()
 
   const handleClick = async (user) => {
     try {
@@ -34,13 +36,13 @@ const ChatOnline = ({ onlineUsers, currentUserId, setCurrentChat }) => {
         <div className="chatOnlineFriend" onClick={() => handleClick(online)}>
           <div className="chatOnlineImgContainer">
             <Avatar
-              className="conversationImg"
+              className={classes.chatOnlineImg}
               src={online?.imageUrl}
               alt={online?.name}
             />
             <div className="chatOnlineBadge"></div>
           </div>
-          <span className="chatOnlineName">{online?.name}</span>
+          <Typography className={classes.chatOnlineName}>{online?.name}</Typography>
         </div>
       ))}
     </div>

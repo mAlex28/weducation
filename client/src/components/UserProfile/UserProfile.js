@@ -31,8 +31,6 @@ const UserProfile = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const [showPassword, setShowPassword] = useState(false)
-  const handleShowPassword = () => setShowPassword(!showPassword)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
