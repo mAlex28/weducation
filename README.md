@@ -28,7 +28,7 @@ npm start
 - Choose category before posting (Adding tags)
 - Edit post
 - Like
-- Comment (text or photos)
+- Comment
 - Delete user’s posts
 - Search 
 - Search by tags
@@ -37,3 +37,7 @@ npm start
 
 ## Example video
 https://liveplymouthac-my.sharepoint.com/:v:/g/personal/10707285_students_plymouth_ac_uk/EW0s9iH-mEFCuAMAFXWm6wcBgWSzBh5t6SjjGxNVwBMmfA?e=lEUgod
+
+## Screenshot
+
+![home](https://user-images.githubusercontent.com/52848335/174471520-87fb59ed-fac5-4b87-96ca-983aa88b1999.png)
