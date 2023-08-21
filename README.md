@@ -1,5 +1,8 @@
 # Weducation
 
+```diff 
+- API doesn't work anymore since heroku removed the free version
+```
 API is hosted in : https://weducation.herokuapp.com/
 
 ### How to run
